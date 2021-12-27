@@ -1,0 +1,30 @@
+{
+  "regalos": [
+    {
+      "name": "Calcetines",
+      "id": 1
+    },
+    {
+      "name": "Chocolates",
+      "id": 2
+    },
+    {
+      "name": "Aguinaldo",
+      "id": 3
+    }
+  ],
+  "users": [
+    {
+      "email": "waiter@bq.com",
+      "password": "1234",
+      "id": 1,
+      "role": "user"
+    },
+    {
+      "email": "werd@sd.com",
+      "password": "$2a$10$uzUTRtIaW8c2EJKIKnOROO3gwNxY7rAThl.X47Ei2P4hyZ.wrXoAe",
+      "id": 2,
+      "role": "admin"
+    }
+  ]
+}
