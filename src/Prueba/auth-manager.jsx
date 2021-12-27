@@ -1,4 +1,4 @@
-const auth = (action, email, password) => {
+const auth = async (action, email, password) => {
   const login = "http://localhost:3004/login";
   const signup = "http://localhost:3004/users";
   const controller = new AbortController();
@@ -9,9 +9,15 @@ const auth = (action, email, password) => {
     method: "POST",
   };
   setTimeout(() => controller.abort(), 5000);
-  return fetch(action === "login" ? login : signup, options)
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+  try {
+    const userInfo = await (await fetch(action === "login" ? login : signup, options)).json();
+    console.log(userInfo)
+    return userInfo;
+  }
+  catch {
+    console.log("no jaló")
+    return "Pos chale"
+  }
 };
 
 export default auth;

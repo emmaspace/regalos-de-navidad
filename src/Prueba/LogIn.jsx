@@ -9,21 +9,6 @@ export default function SignUp() {
     e.preventDefault();
     auth("login", email, password);
   };
-  const verUsuario = (e) => {
-    e.preventDefault();
-    const signup = "http://localhost:3004/users";
-    const controller = new AbortController();
-    const options = {
-      headers: { "content-type": "application/json" },
-      // body: JSON.stringify({ email, password }),
-      signal: controller.signal,
-      method: "GET",
-    };
-    setTimeout(() => controller.abort(), 5000);
-    return fetch(`http://localhost:3004/users?email=${email}`, options)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
 
   return (
     <>
@@ -42,9 +27,6 @@ export default function SignUp() {
       />
       <button onClick={(e) => /* console.log("Holi") */ loginUser(e)}>
         Enviar
-      </button>
-      <button onClick={(e) => /* console.log("Holi") */ verUsuario(e)}>
-        Ver Usuario
       </button>
     </>
   );
