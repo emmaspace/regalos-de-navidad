@@ -10,13 +10,13 @@ const auth = async (action, email, password) => {
   };
   setTimeout(() => controller.abort(), 5000);
   try {
-    const userInfo = await (await fetch(action === "login" ? login : signup, options)).json();
-    console.log(userInfo)
-    return userInfo;
-  }
-  catch {
-    console.log("no jaló")
-    return "Pos chale"
+    const userInfo = await (
+      await fetch(action === "login" ? login : signup, options)
+    ).json();
+    
+    return userInfo.user;
+  } catch {
+    return null;
   }
 };
 

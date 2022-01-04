@@ -4,15 +4,26 @@ import auth from "./auth-manager";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const createUser = (e) => {
+  const createUser = async (e) => {
     e.preventDefault();
-    auth("signup", email, password);
+    let signup = {};
+    try {
+      const res = await auth("login", email, password);
+      if (res) signup = res;
+      else setError("Something went wrong");
+      // navigate to home
+    } catch {
+      setError("Something went wrong");
+    }
+    return signup;
   }
   
   return (
     <>
       <h1>SignUp:</h1>
+      <p>{error}</p>
       <label forhtml="email">Email:</label>
       <input
         type="text"
