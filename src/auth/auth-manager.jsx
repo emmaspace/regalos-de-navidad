@@ -1,3 +1,7 @@
+import Cookies from "universal-cookie"
+
+const cookies = new Cookies();
+
 const auth = async (action, email, password) => {
   const login = "http://localhost:3004/login";
   const signup = "http://localhost:3004/users";
@@ -10,14 +14,23 @@ const auth = async (action, email, password) => {
   };
   setTimeout(() => controller.abort(), 5000);
   try {
-    const userInfo = await (
+    const auth = await (
       await fetch(action === "login" ? login : signup, options)
     ).json();
-    
-    return userInfo.user;
+    const id = cookies.set("id", auth.user.id, "/");
+    const name = cookies.set("name", auth.user.name, "/");
+    const email = cookies.set("email", auth.user.email, "/");
+    console.log({ email, id, name });
+    return {email, id, name};
   } catch {
     return null;
   }
 };
+
+export const logout = () => {
+  cookies.remove("id");
+  cookies.remove("name");
+  cookies.remove("email");
+}
 
 export default auth;

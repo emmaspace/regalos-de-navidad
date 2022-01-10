@@ -15,15 +15,12 @@
   ],
   "users": [
     {
-      "email": "werd@sd.com",
+      "email": "emma@rn.com",
       "password": "$2a$10$uzUTRtIaW8c2EJKIKnOROO3gwNxY7rAThl.X47Ei2P4hyZ.wrXoAe",
       "id": 1,
+      "name": "Emma",
+      "image": "",
       "role": "admin"
-    },
-    {
-      "email": "123@1231.123",
-      "password": "$2a$10$CGqCHwY3.A9ZjHkDwGnq2OM1wYRR.tm2IK4cpdwQPQruZDBjc3DR.",
-      "id": 2
     }
   ]
 }

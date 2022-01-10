@@ -1,10 +1,11 @@
 import React, {
   createContext,
   useState,
-  /* useEffect, */
+  useEffect,
   useMemo,
   useContext,
 } from "react";
+import Cookies from "universal-cookie";
 
 export const AuthDataContext = createContext(null);
 
@@ -13,22 +14,24 @@ const initialAuthData = {};
 const AuthDataProvider = (props) => {
   const [authData, setAuthData] = useState(initialAuthData);
 
-  /* The first time the component is rendered, it tries to
-   * fetch the auth data from a source, like a cookie or
-   * the localStorage.
-   
   useEffect(() => {
-    const currentAuthData = someManager.getAuthData();
-    if (currentAuthData) {
-      setAuthData(currentAuthData);
+    const cookies = new Cookies();
+    if (cookies.get("email")) {
+      const id = cookies.get("id");
+      const name = cookies.get("name");
+      const email = cookies.get("email");
+      setAuthData({ email, id, name });
     }
-  }, []); */
+  }, []);
 
   const onLogout = () => setAuthData(initialAuthData);
 
   const onLogin = (newAuthData) => setAuthData(newAuthData);
 
-  const authDataValue = useMemo(() => ({ ...authData, onLogin, onLogout }), [authData]);
+  const authDataValue = useMemo(
+    () => ({ ...authData, onLogin, onLogout }),
+    [authData]
+  );
 
   return <AuthDataContext.Provider value={authDataValue} {...props} />;
 };
