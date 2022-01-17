@@ -1,5 +1,4 @@
 import {
-  Link,
   Alert,
   Input,
   Button,
@@ -9,9 +8,10 @@ import {
   Typography,
   FormControl,
 } from "@mui/material";
-import { GeneralContainer } from "../styling";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import auth from "../../auth/auth-manager";
+import { GeneralContainer } from "../styling";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -102,17 +102,14 @@ export default function SignUp() {
         <Typography component="p" sx={{ alignSelf: "center" }}>
           ¿Ya tienes una cuenta?
         </Typography>
-        <Link
-          href="/login"
+        <Typography
           color="secondary"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
-          }}
           sx={{ alignSelf: "center", fontFamily: "Roboto" }}
+          to="/login"
+          component={Link}
         >
           Inicia sesión
-        </Link>
+        </Typography>
       </Container>
     </GeneralContainer>
   );

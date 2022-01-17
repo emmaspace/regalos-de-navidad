@@ -1,5 +1,4 @@
 import {
-  Link,
   Alert,
   Input,
   Button,
@@ -9,9 +8,10 @@ import {
   Typography,
   FormControl,
 } from "@mui/material";
-import { GeneralContainer } from "../styling";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import auth from "../../auth/auth-manager";
+import { GeneralContainer } from "../styling";
 import { useAuthDataContext } from "../../providers/auth-provider";
 
 export default function SignUp() {
@@ -38,9 +38,9 @@ export default function SignUp() {
     <GeneralContainer>
       <Container
         sx={{
+          height: 1,
           display: "flex",
           flexDirection: "column",
-          height: 1,
           justifyContent: "space-around",
         }}
       >
@@ -93,17 +93,14 @@ export default function SignUp() {
         <Typography component="p" sx={{ alignSelf: "center" }}>
           ¿No tienes una cuenta?
         </Typography>
-        <Link
-          href="/signup"
+        <Typography
           color="secondary"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
-          }}
           sx={{ alignSelf: "center", fontFamily: "Roboto" }}
+          to="/signup"
+          component={Link}
         >
           Regístrate
-        </Link>
+        </Typography>
       </Container>
     </GeneralContainer>
   );
