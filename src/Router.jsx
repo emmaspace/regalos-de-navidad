@@ -1,9 +1,9 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useAuthDataContext } from "./auth/auth-provider";
+import { useAuthDataContext } from "./providers/auth-provider";
 
-import Home from "./Home/Home";
-import LogIn from "./Login/LogIn";
-import SignUp from "./SignUp/SignUp";
+import Home from "./Components/Home/Home";
+import LogIn from "./Components/Login/LogIn";
+import SignUp from "./Components/SignUp/SignUp";
 
 function PrivateRoute({ children }) {
   const { email } = useAuthDataContext();
