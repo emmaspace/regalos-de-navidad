@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  background: no-repeat bottom/cover url("../public/dark-background.jpeg");
+  /* "https://i.ibb.co/zFSkzL4/light-background.jpg" */
+  transition: "background-image 1s ease-in-out";
+}

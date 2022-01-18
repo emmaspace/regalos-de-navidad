@@ -4,6 +4,7 @@ import AuthDataProvider from "./providers/auth-provider";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Router from "./Router";
+import "./App.scss";
 
 const darkTheme = createTheme({
   typography: { allVariants: { color: "#D3B7B0" } },

@@ -11,5 +11,8 @@ export const GeneralContainer = styled("main")({
   borderColor: "#D3B7B0",
   backdropFilter: "blur(15px)",
   backgroundColor: "rgba(30,43,68,0.5)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-around",
 });
 
