@@ -9,9 +9,10 @@ import {
   FormControl,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import auth from "../../auth/auth-manager";
 import { GeneralContainer } from "../custom";
+import { Link, useNavigate } from "react-router-dom";
+import { signUp, updateUser } from "../../auth/firebase-manager";
+import { useAuthDataContext } from "../../providers/auth-provider";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -20,21 +21,19 @@ export default function SignUp() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+    const { onLogin } = useAuthDataContext();
 
   const createUser = async (e) => {
-    e.stopPropagation();
     e.preventDefault();
-    let signup = {};
     try {
-      const res = await auth("signup", email, password, name);
-      if (res) {
-        signup = res;
-        navigate("/");
-      } else setError("Algo salió mal, por favor vuelve a intentar");
-    } catch {
-      setError("Algo salió mal, por favor vuelve a intentar");
+      const user = await signUp(email, password);
+      await updateUser(name);
+      console.log(user);
+      onLogin(user);
+      navigate("/")
+    } catch (err) {
+      setError(err);
     }
-    return signup;
   };
 
   return (
@@ -47,16 +46,14 @@ export default function SignUp() {
           justifyContent: "space-around",
         }}
       >
-        <FormGroup
-          sx={{ height: "80%", justifyContent: "space-around" }}
-        >
+        <FormGroup sx={{ height: "80%", justifyContent: "space-around" }}>
           <Typography
             gutterBottom
             variant="h3"
             component="h2"
             sx={{ marginBottom: 0 }}
           >
-            Registro:
+            Registro
           </Typography>
           {error ? <Alert severity="error">{error}</Alert> : null}
 
