@@ -1,5 +1,5 @@
 import { GeneralContainer } from "../custom";
-import { logout } from "../../auth/auth-manager";
+import { logOut } from "../../auth/firebase-manager";
 import React, { useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Button, Typography, List, ListItem, Fab } from "@mui/material";
@@ -11,14 +11,14 @@ export default function Home() {
   const [error, setError] = useState("");
 
   const { onLogout } = useAuthDataContext();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   const exit = (e) => {
     e.preventDefault();
-    navigate("/");
     onLogout();
-    logout();
+    logOut();
+    navigate("/");
   };
 
   useEffect(() => {

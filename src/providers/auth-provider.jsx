@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   createContext,
   useState,
@@ -5,7 +6,8 @@ import React, {
   useMemo,
   useContext,
 } from "react";
-import Cookies from "universal-cookie";
+import { onAuthStateChanged } from "firebase/auth";
+import auth from "../auth/firebase-config";
 
 export const AuthDataContext = createContext(null);
 
@@ -14,19 +16,19 @@ const initialAuthData = {};
 const AuthDataProvider = (props) => {
   const [authData, setAuthData] = useState(initialAuthData);
 
-  useEffect(() => {
-    const cookies = new Cookies();
-    if (cookies.get("email")) {
-      const id = cookies.get("id");
-      const name = cookies.get("name");
-      const email = cookies.get("email");
-      setAuthData({ email, id, name });
-    }
-  }, []);
-
   const onLogout = () => setAuthData(initialAuthData);
-
   const onLogin = (newAuthData) => setAuthData(newAuthData);
+  
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthData(user)
+      } else {
+        setAuthData(initialAuthData)
+      }
+    });
+  }, [onLogin, onLogout]);
+
 
   const authDataValue = useMemo(
     () => ({ ...authData, onLogin, onLogout }),
