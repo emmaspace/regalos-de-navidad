@@ -32,7 +32,7 @@ export default function Router() {
         path="/login"
         element={
           <PublicRoute>
-            <LogIn />
+            <LogIn/>
           </PublicRoute>
         }
       />

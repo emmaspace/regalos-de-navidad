@@ -9,10 +9,74 @@ import {
   FormControl,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../auth/auth-manager";
-import { GeneralContainer } from "../styling";
+import { GeneralContainer } from "../custom";
 import { useAuthDataContext } from "../../providers/auth-provider";
+
+/* const disableAllUserEvents = () => {
+  const events = [
+    "click",
+    /* "contextmenu",
+    "dblclick",
+    "mousedown",
+    "mouseenter",
+    "mouseleave",
+    "mousemove",
+    "mouseover",
+    "mouseout",
+    "mouseup",
+    "keydown",
+    "keypress",
+    "keyup",
+    "blur",
+    "change",
+    "focus",
+    "focusin",
+    "focusout",
+    "input",
+    "invalid",
+    "reset",
+    "search",
+    "select",
+    "submit",
+    "drag",
+    "dragend",
+    "dragenter",
+    "dragleave",
+    "dragover",
+    "dragstart",
+    "drop",
+    "copy",
+    "cut",
+    "paste",
+    "mousewheel",
+    "wheel",
+    "touchcancel",
+    "touchend",
+    "touchmove",
+    "touchstart", 
+  ];
+
+  const handler = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    return false;
+  };
+
+  for (let i = 0, l = events.length; i < l; i++) {
+    document.addEventListener(events[i], handler, true);
+  }
+
+  return () => {
+    for (let i = 0, l = events.length; i < l; i++) {
+      document.removeEventListener(events[i], handler, true);
+    }
+  };
+};
+
+disableAllUserEvents(); */
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -20,14 +84,17 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   const { onLogin } = useAuthDataContext();
+  const navigate = useNavigate();
 
   const loginUser = async (e) => {
     e.preventDefault();
     let loginInfo = {};
     try {
       const res = await auth("login", email, password);
-      if (res) loginInfo = res;
-      else setError("Tu email o contraseña son incorrectos");
+      if (res) {
+        loginInfo = res;
+        navigate("/");
+      } else setError("Tu email o contraseña son incorrectos");
     } catch {
       setError("Algo salió mal, por favor vuelve a intentar");
     }
@@ -36,18 +103,11 @@ export default function SignUp() {
 
   return (
     <GeneralContainer>
-      <Container
-        sx={{
-          height: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-        }}
-      >
-        <FormGroup
+
+        {/* <FormGroup
           component="form"
           sx={{ height: "80%", justifyContent: "space-around" }}
-        >
+        > */}
           <Typography
             gutterBottom
             variant="h3"
@@ -89,7 +149,7 @@ export default function SignUp() {
           >
             Enviar
           </Button>
-        </FormGroup>
+        {/* </FormGroup> */}
         <Typography component="p" sx={{ alignSelf: "center" }}>
           ¿No tienes una cuenta?
         </Typography>
@@ -101,7 +161,7 @@ export default function SignUp() {
         >
           Regístrate
         </Typography>
-      </Container>
+
     </GeneralContainer>
   );
 }

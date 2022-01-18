@@ -9,9 +9,9 @@ import {
   FormControl,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../auth/auth-manager";
-import { GeneralContainer } from "../styling";
+import { GeneralContainer } from "../custom";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -19,13 +19,18 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const createUser = async (e) => {
+    e.stopPropagation();
     e.preventDefault();
     let signup = {};
     try {
       const res = await auth("signup", email, password, name);
-      if (res) signup = res;
-      else setError("Algo salió mal, por favor vuelve a intentar");
+      if (res) {
+        signup = res;
+        navigate("/");
+      } else setError("Algo salió mal, por favor vuelve a intentar");
     } catch {
       setError("Algo salió mal, por favor vuelve a intentar");
     }
@@ -43,7 +48,6 @@ export default function SignUp() {
         }}
       >
         <FormGroup
-          component="form"
           sx={{ height: "80%", justifyContent: "space-around" }}
         >
           <Typography
@@ -90,6 +94,7 @@ export default function SignUp() {
           </FormControl>
 
           <Button
+            component="button"
             size="large"
             color="primary"
             variant="outlined"
