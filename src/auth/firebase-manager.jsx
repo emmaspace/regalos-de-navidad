@@ -34,7 +34,7 @@ export const updateUser = (name) => {
 };
 
 export const logIn = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
+  return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user);

@@ -21,7 +21,7 @@ export default function SignUp() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-    const { onLogin } = useAuthDataContext();
+  const { onLogin } = useAuthDataContext();
 
   const createUser = async (e) => {
     e.preventDefault();
@@ -29,8 +29,10 @@ export default function SignUp() {
       const user = await signUp(email, password);
       await updateUser(name);
       console.log(user);
-      onLogin(user);
-      navigate("/")
+      if (typeof user !== "string") {
+        onLogin(user);
+        navigate("/");
+      } else if (user) setError(user);
     } catch (err) {
       setError(err);
     }

@@ -22,15 +22,16 @@ export default function SignUp() {
   const { onLogin } = useAuthDataContext();
   const navigate = useNavigate();
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
     let loginInfo = {};
     try {
-      const res = logIn(email, password);
-      if (res) {
+      const res = await logIn(email, password);
+      console.log(res)
+      if (typeof res !== "string") {
         loginInfo = res;
         navigate("/");
-      }
+      } else if (res) setError(res);
     } catch (err) {
       setError(err);
     }
